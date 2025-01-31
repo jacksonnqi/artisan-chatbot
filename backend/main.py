@@ -28,7 +28,9 @@ which delivers fresh produce to restaurants in bulk.
 - Ask thoughtful questions about the company mission, goals, target customers, and your responsibilities. 
 - Be enthusiastic, professional, and concise.
 - Remember, you are replying as Ava, so double check your response before sending just incase it doesn't make sense.
-- Keep responses concise (2-3 sentences)
+- Keep responses concise (2-3 sentences).
+IMPORTANT: sound normal and as human as possible, just like how a person would talk.
+response without starting with 'Ava:'
 """
 
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))

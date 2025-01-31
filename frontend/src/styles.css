@@ -1,13 +1,244 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow: hidden; /* Disable scrolling for the page */
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.app-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.chat-container {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.messages {
+  height: 400px; /* Set a fixed height for the chatbox */
+  overflow-y: auto; /* Enable vertical scrolling */
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.message {
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 8px;
+  background: #f5f5f5;
+}
+
+.message.user {
+  background: #e3f2fd;
+  margin-left: 20%;
+}
+
+.message.bot {
+  background: #f5f5f5;
+  margin-right: 20%;
+}
+
+.input-area {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between avatar, input, and button */
+  padding: 10px;
+  background-color: #f1f5f9; /* Light background for input area */
+  border-radius: 16px; /* Rounded corners for the input area */
+}
+
+input {
+  flex-grow: 1; /* Make the input take up available space */
+  padding: 10px;
+  border: none;
+  border-radius: 16px;
+  background-color: white; /* White background for input */
+}
+
+button {
+  padding: 8px 16px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.error {
+  color: #dc3545;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #dc3545;
+  border-radius: 4px;
+  background: #f8d7da;
+}
+
+.message-actions {
+  margin-top: 5px;
+  display: flex;
+  gap: 5px;
+}
+
+.timestamp {
+  display: block;
+  font-size: 0.8em;
+  color: #666;
+  margin-top: 5px;
+}
+
+.avatar {
+  width: 40px; /* Set a fixed width for the avatar */
+  height: 40px; /* Set a fixed height for the avatar */
+  border-radius: 50%; /* Make it circular */
+  overflow: hidden; /* Ensure no overflow outside the circle */
+  flex-shrink: 0; /* Prevent it from shrinking in flex layouts */
+}
+
+.avatar img {
+  width: 100%; /* Ensure the image fills the avatar container */
+  height: 100%; /* Ensure the image fills the avatar container */
+  object-fit: cover; /* Maintain aspect ratio and cover the entire container */
+}
+
+.message-wrapper {
+  position: relative; /* Make this container the reference for absolute positioning */
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between avatar and message content */
+}
+
+/* Menu container */
+.menu-container {
+  position: absolute; /* Position relative to .message-wrapper */
+  top: 10px; /* Align near the top of the message bubble */
+  right: 10px; /* Align near the right edge of the message bubble */
+  z-index: 10; /* Ensure it appears above other elements */
+}
+
+/* Three-dot button */
+.menu-button {
+  background-color: transparent;
+  color: black;
+  border: none;
+  font-size: 18px; /* Size for the three dots */
+  cursor: pointer;
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 5px); /* Position dropdown below the three dots */
+  right: -5px; /* Align dropdown with right edge of menu button */
+  background-color: #e3f2fd; /* Light blue background for better contrast */
+  border-radius: 4px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Dropdown buttons */
+.dropdown-menu button {
+  display: block; /* Stack buttons vertically */
+  width: 100%; /* Full width of dropdown */
+  padding: 8px;
+  background-color: transparent;
+  border: none;
+  text-align: left; /* Align text to the left */
+  color: black; /* Black text for better readability */
+}
+
+.dropdown-menu button:hover {
+  background-color: #bbdefb; /* Slightly darker blue on hover */
+}
+
+.chat-header {
+  display: flex; /* Use Flexbox */
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+  justify-content: center; /* Center items vertically */
+  gap: 10px; /* Add space between the avatar and text */
+  padding: 20px;
+}
+
+.header-avatar {
+  width: 100px; /* Larger size for header avatar */
+  height: 100px; /* Larger size for header avatar */
+  border-radius: 50%; /* Make the image circular */
+  overflow: hidden; /* Ensure no overflow outside the circle */
+}
+
+.header-avatar img {
+  width: 100%; /* Ensure the image fills the container */
+  height: 100%; /* Ensure the image fills the container */
+  object-fit: cover; /* Maintain aspect ratio and fill the container */
+}
+
+/* Chat Header Text Styling */
+.chat-header-text {
+  text-align: center; /* Center-align text below the avatar */
+}
+
+.chat-header-text h1 {
+  margin: 0;
+  font-size: 22px; /* Slightly larger font for emphasis */
+}
+
+.chat-header-text p {
+  margin: 5px 0 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.input-avatar {
+  width: 40px; /* Size of the avatar */
+  height: 40px;
+  border-radius: 50%; /* Circular avatar */
+  overflow: hidden; /* Ensure no overflow outside the circle */
+}
+
+.input-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensure the image fills the avatar container */
+}
+
+.typing-indicator {
+  display: flex;
+  gap: 5px;
+  padding: 10px;
+}
+
+.typing-indicator span {
+  width: 8px;
+  height: 8px;
+  background-color: #007bff; /* Blue color for dots */
+  border-radius: 50%;
+  animation: typing-animation 1.5s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typing-animation {
+  from {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  to {
+    transform: scale(1.2);
+    opacity: 1;
+  }
 }
